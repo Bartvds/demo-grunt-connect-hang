@@ -1,18 +1,9 @@
 'use strict';
 
 module.exports = function (grunt) {
-	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 
 	grunt.initConfig({
-		jshint: {
-			options: grunt.file.readJSON('.jshintrc'),
-			all: [
-				'Gruntfile.js',
-				'lib/**/*.js',
-				'tasks/**/*.js'
-			]
-		},
 		connect: {
 			run: {
 				options: {
@@ -41,8 +32,10 @@ module.exports = function (grunt) {
 		grunt.log.writeln('this is the end');
 	});
 
-	grunt.registerTask('setup', ['jshint', 'connect']);
+	grunt.registerTask('test', ['connect', 'task_fail']);
+	grunt.registerTask('build', ['connect', 'task_pass']);
 
-	grunt.registerTask('hang', ['setup', 'task_fail']);
-	grunt.registerTask('pass', ['setup', 'task_pass']);
+	// ui shortcuts
+	grunt.registerTask('edit_01', ['test']);
+	grunt.registerTask('edit_02', ['build']);
 };
